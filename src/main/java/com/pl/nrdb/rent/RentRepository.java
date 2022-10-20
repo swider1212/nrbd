@@ -10,4 +10,6 @@ public interface RentRepository extends JpaRepository<Rent, Integer> {
     Optional<Rent> findById(Integer id);
 
     Optional<Rent> findByRoomRoomNumberAndClientId(Integer roomNumber, Integer clientId);
+
+    boolean existsByRoomRoomNumberAndClientId(Integer roomNumber, Integer clientId);
 }

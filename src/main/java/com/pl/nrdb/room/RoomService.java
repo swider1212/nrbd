@@ -15,8 +15,10 @@ public class RoomService {
         return roomRepository.findByRoomNumber(roomNumber).orElseThrow(() -> new RoomNotFoundException(roomNumber));
     }
 
-    private boolean checkDuplicateRoom(Integer roomNumber){
-        return roomRepository.existsByRoomNumber(roomNumber);
+    private void checkDuplicateRoom(Integer roomNumber){
+        if (roomRepository.existsByRoomNumber(roomNumber)) {
+            throw new RoomAlreadyExistException(roomNumber);
+        }
     }
 
     private Room addRoom(Integer roomNumber, Boolean isAvailable){
@@ -30,5 +32,9 @@ public class RoomService {
 
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
+    }
+
+    private void deleteRoom(Integer roomNumber) {
+        roomRepository.delete(fetchRoom(roomNumber));
     }
 }
