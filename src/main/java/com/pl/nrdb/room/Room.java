@@ -28,4 +28,6 @@ public abstract class Room {
     @NotNull
     private Boolean isAvailable = true;
 
+    abstract Room addRoom();
+
 }

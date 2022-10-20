@@ -11,17 +11,17 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
-    public Room fetchRoom(Integer roomNumber){
+    public Room fetchRoom(Integer roomNumber) {
         return roomRepository.findByRoomNumber(roomNumber).orElseThrow(() -> new RoomNotFoundException(roomNumber));
     }
 
-    private void checkDuplicateRoom(Integer roomNumber){
+    private void checkDuplicateRoom(Integer roomNumber) {
         if (roomRepository.existsByRoomNumber(roomNumber)) {
             throw new RoomAlreadyExistException(roomNumber);
         }
     }
 
-    private Room addRoom(Integer roomNumber, Boolean isAvailable){
+    private Room addRoom(Integer roomNumber, Boolean isAvailable) {
         checkDuplicateRoom(roomNumber);
         Room room = Room.builder()
                 .roomNumber(roomNumber)

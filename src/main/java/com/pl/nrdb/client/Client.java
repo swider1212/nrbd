@@ -34,10 +34,5 @@ public class Client {
     @NotNull
     private String phoneNumber;
 
-    @Column(length = 100)
-    @Setter
-    @NotNull
-    private Boolean currentClient = false;
-
     IdCard idCard;
 }

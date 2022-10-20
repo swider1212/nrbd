@@ -1,14 +1,11 @@
 package com.pl.nrdb.rent;
 
-import com.pl.nrdb.client.ClientRepository;
 import com.pl.nrdb.client.ClientService;
 import com.pl.nrdb.room.RoomIsNotAvailableException;
-import com.pl.nrdb.room.RoomRepository;
 import com.pl.nrdb.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -18,18 +15,16 @@ public class RentService {
     private final ClientService clientService;
     private final RoomService roomService;
 
-    public Rent fetchRent(Integer id) {
-        return rentRepository.findById(id).orElseThrow(() -> new RentNotFoundException(id));
+    public Rent fetchRent(Integer roomNumber, Integer clientId) {
+        return rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId));
     }
 
     public List<Rent> getAllRents() {
         return rentRepository.findAll();
     }
 
-    private void endRent(Integer roomNumber, Integer clientId, Integer id) {
-        Rent rent = rentRepository
-                .findByRoomRoomNumberAndClientId(roomNumber, clientId)
-                .orElseThrow(() -> new RentNotFoundException(id));
+    private void endRent(Integer roomNumber, Integer clientId) {
+        rentRepository.delete(rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId)));
     }
 
     private Rent addRent(Float rentTotalCost, Integer roomNumber, Integer clientId) {
@@ -43,7 +38,7 @@ public class RentService {
     }
 
     private void checkDuplicate(Integer roomNumber, Integer clientId) {
-        if (rentRepository.existsByRoomRoomNumberAndClientId(roomNumber, clientId)){
+        if (rentRepository.existsByRoomRoomNumberAndClientId(roomNumber, clientId)) {
             throw new RentAlreadyExistException(roomNumber, clientId);
         }
     }
@@ -51,6 +46,12 @@ public class RentService {
     private void isRoomAvailable(Integer roomNumber) {
         if (roomService.fetchRoom(roomNumber).getIsAvailable()) {
             throw new RoomIsNotAvailableException(roomNumber);
+        }
+    }
+
+    private void isRentExist(Integer roomNumber, Integer clientId) {
+        if (!rentRepository.existsByRoomRoomNumberAndClientId(roomNumber, clientId)) {
+            throw new RentNotFoundException(roomNumber, clientId);
         }
     }
 }

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DoubleRoom extends Room{
+public class DoubleRoom extends Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SingleRoom extends Room{
+public class SingleRoom extends Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +28,9 @@ public class SingleRoom extends Room{
     @Setter
     @NotNull
     private Integer Capacity = 1;
+
+    @Override
+    Room addRoom() {
+        return null;
+    }
 }
