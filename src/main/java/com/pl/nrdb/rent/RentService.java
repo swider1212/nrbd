@@ -6,6 +6,7 @@ import com.pl.nrdb.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -27,7 +28,8 @@ public class RentService {
         rentRepository.delete(rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId)));
     }
 
-    private Rent addRent(Float rentTotalCost, Integer roomNumber, Integer clientId) {
+    @Transactional
+    Rent addRent(Float rentTotalCost, Integer roomNumber, Integer clientId) {
         checkDuplicate(roomNumber, clientId);
         isRoomAvailable(roomNumber);
         return rentRepository.save(Rent.builder()

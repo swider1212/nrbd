@@ -3,34 +3,28 @@ package com.pl.nrdb.room;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@DiscriminatorValue("1")
 public class SingleRoom extends Room {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+    @Column(length = 100)
+    @Setter
+    @NotNull
+    private Integer basePrice = 170;
 
     @Column(length = 100)
     @Setter
     @NotNull
-    private Integer BasePrice = 170;
+    private Integer capacity = 1;
 
-    @Column(length = 100)
-    @Setter
-    @NotNull
-    private Integer Capacity = 1;
-
-    @Override
-    Room addRoom() {
-        return null;
+    @Builder
+    public SingleRoom(Integer id, Integer roomNumber, Boolean isAvailable, Integer basePrice, Integer capacity) {
+        super(id, roomNumber, isAvailable);
+        this.basePrice = basePrice;
+        this.capacity = capacity;
     }
 }

@@ -25,7 +25,14 @@ public class Rent {
     @NotNull
     private Float rentTotalCost;
 
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    @Setter
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    @Setter
     private Room room;
 }

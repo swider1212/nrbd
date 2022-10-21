@@ -21,13 +21,31 @@ public class RoomService {
         }
     }
 
-    private Room addRoom(Integer roomNumber, Boolean isAvailable) {
+    private Room addSingleRoom(Integer roomNumber, Boolean isAvailable) {
         checkDuplicateRoom(roomNumber);
-        Room room = Room.builder()
+        SingleRoom singleRoom = SingleRoom.builder()
                 .roomNumber(roomNumber)
                 .isAvailable(isAvailable)
                 .build();
-        return roomRepository.save(room);
+        return roomRepository.save(singleRoom);
+    }
+
+    private Room addDoubleRoom(Integer roomNumber, Boolean isAvailable) {
+        checkDuplicateRoom(roomNumber);
+        DoubleRoom doubleRoom = DoubleRoom.builder()
+                .roomNumber(roomNumber)
+                .isAvailable(isAvailable)
+                .build();
+        return roomRepository.save(doubleRoom);
+    }
+
+    private Room addTripleRoom(Integer roomNumber, Boolean isAvailable) {
+        checkDuplicateRoom(roomNumber);
+        TripleRoom tripleRoom = TripleRoom.builder()
+                .roomNumber(roomNumber)
+                .isAvailable(isAvailable)
+                .build();
+        return roomRepository.save(tripleRoom);
     }
 
     public List<Room> getAllRooms() {

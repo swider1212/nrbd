@@ -5,13 +5,15 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity (name = "rooms")
 @Table
 @Getter
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public abstract class Room {
+@NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="room_type",
+        discriminatorType = DiscriminatorType.INTEGER)
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +25,9 @@ public abstract class Room {
     @NotNull
     private Integer roomNumber;
 
-    @Column(length = 100)
+    @Column
     @Setter
     @NotNull
     private Boolean isAvailable = true;
-
-    abstract Room addRoom();
 
 }

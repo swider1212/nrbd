@@ -21,14 +21,7 @@ public class ClientService {
     }
 
     private void deleteClient(Integer id) {
-        isClientExist(id);
         clientRepository.delete(fetchClient(id));
-    }
-
-    private void isClientExist(Integer id) {
-        if (!clientRepository.existsById(id)) {
-            throw new ClientNotFoundException(id);
-        }
     }
 
     private void checkDuplicate(String firstName, String lastName, String phoneNumber) {
