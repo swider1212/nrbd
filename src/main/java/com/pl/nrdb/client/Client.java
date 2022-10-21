@@ -34,7 +34,6 @@ public class Client {
     @NotNull
     private String phoneNumber;
 
-    @JoinColumn(name = "idCard_id")
     @Setter
     @OneToOne
     IdCard idCard;

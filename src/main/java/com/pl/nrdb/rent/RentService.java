@@ -32,11 +32,13 @@ public class RentService {
     Rent addRent(Float rentTotalCost, Integer roomNumber, Integer clientId) {
         checkDuplicate(roomNumber, clientId);
         isRoomAvailable(roomNumber);
+        roomService.fetchRoom(roomNumber).setIsAvailable(true);
         return rentRepository.save(Rent.builder()
                 .client(clientService.fetchClient(clientId))
                 .room(roomService.fetchRoom(roomNumber))
                 .rentTotalCost(rentTotalCost)
                 .build());
+
     }
 
     private void checkDuplicate(Integer roomNumber, Integer clientId) {
@@ -51,9 +53,4 @@ public class RentService {
         }
     }
 
-    private void isRentExist(Integer roomNumber, Integer clientId) {
-        if (!rentRepository.existsByRoomRoomNumberAndClientId(roomNumber, clientId)) {
-            throw new RentNotFoundException(roomNumber, clientId);
-        }
-    }
 }
