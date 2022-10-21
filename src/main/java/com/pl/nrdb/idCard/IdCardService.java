@@ -9,7 +9,7 @@ public class IdCardService {
 
     private final IdCardRepository idCardRepository;
 
-    private IdCard addIdCard(String personalId, String nationality) {
+    public IdCard addIdCard(String personalId, String nationality) {
         checkDuplicate(personalId, nationality);
         return idCardRepository.save(IdCard.builder()
                 .nationality(nationality)
