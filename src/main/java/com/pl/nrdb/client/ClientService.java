@@ -1,5 +1,7 @@
 package com.pl.nrdb.client;
 
+import com.pl.nrdb.client.exceptions.ClientNotFoundException;
+import com.pl.nrdb.client.exceptions.ClientWithCreditsNotFoundExceptions;
 import com.pl.nrdb.idCard.IdCardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

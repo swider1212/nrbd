@@ -1,7 +1,9 @@
 package com.pl.nrdb.rent;
 
 import com.pl.nrdb.client.ClientService;
-import com.pl.nrdb.room.RoomIsNotAvailableException;
+import com.pl.nrdb.rent.exceptions.RentAlreadyExistException;
+import com.pl.nrdb.rent.exceptions.RentNotFoundException;
+import com.pl.nrdb.room.exceptions.RoomIsNotAvailableException;
 import com.pl.nrdb.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

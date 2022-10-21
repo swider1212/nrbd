@@ -1,5 +1,8 @@
 package com.pl.nrdb.idCard;
 
+import com.pl.nrdb.idCard.exceptions.IdCardAlreadyExistException;
+import com.pl.nrdb.idCard.exceptions.IdCardNotFoundException;
+import com.pl.nrdb.idCard.exceptions.IdCardWithIdNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

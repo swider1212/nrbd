@@ -1,6 +1,6 @@
-package com.pl.nrdb.client;
+package com.pl.nrdb.client.exceptions;
 
-import com.pl.nrdb.NrdbException;
+import com.pl.nrdb.exceptions.NrdbException;
 
 public class ClientNotFoundException extends NrdbException {
     public ClientNotFoundException(Integer clientId) {

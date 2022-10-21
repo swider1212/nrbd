@@ -1,4 +1,4 @@
-package com.pl.nrdb;
+package com.pl.nrdb.exceptions;
 
 import lombok.Getter;
 

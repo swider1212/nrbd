@@ -1,6 +1,6 @@
-package com.pl.nrdb.room;
+package com.pl.nrdb.room.exceptions;
 
-import com.pl.nrdb.NrdbException;
+import com.pl.nrdb.exceptions.NrdbException;
 
 public class RoomNotFoundException extends NrdbException {
     public RoomNotFoundException(Integer roomNumber) {

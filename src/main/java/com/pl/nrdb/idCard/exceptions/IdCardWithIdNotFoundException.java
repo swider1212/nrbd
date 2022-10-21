@@ -1,6 +1,6 @@
-package com.pl.nrdb.idCard;
+package com.pl.nrdb.idCard.exceptions;
 
-import com.pl.nrdb.NrdbException;
+import com.pl.nrdb.exceptions.NrdbException;
 
 public class IdCardWithIdNotFoundException extends NrdbException {
     public IdCardWithIdNotFoundException(Integer id) {

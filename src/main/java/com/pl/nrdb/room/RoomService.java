@@ -1,5 +1,7 @@
 package com.pl.nrdb.room;
 
+import com.pl.nrdb.room.exceptions.RoomAlreadyExistException;
+import com.pl.nrdb.room.exceptions.RoomNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
