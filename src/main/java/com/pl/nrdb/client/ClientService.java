@@ -24,13 +24,13 @@ public class ClientService {
         clientRepository.delete(fetchClient(id));
     }
 
-    private void checkDuplicate(String firstName, String lastName, String phoneNumber) {
+    public void checkDuplicate(String firstName, String lastName, String phoneNumber) {
         if (clientRepository.existsByFirstNameAndAndLastNameAndPhoneNumber(firstName, lastName, phoneNumber)) {
             throw new ClientWithCreditsNotFoundExceptions(firstName, lastName, phoneNumber);
         }
     }
 
-    private Client addClient(String firstName, String lastName, String phoneNumber, Integer idCardId) {
+    public Client addClient(String firstName, String lastName, String phoneNumber, Integer idCardId) {
         checkDuplicate(firstName, lastName, phoneNumber);
         return clientRepository.save(Client.builder()
                 .idCard(idCardService.getIdCard(idCardId))

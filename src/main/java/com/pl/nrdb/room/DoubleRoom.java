@@ -3,7 +3,8 @@ package com.pl.nrdb.room;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 
 @Getter
 @AllArgsConstructor
