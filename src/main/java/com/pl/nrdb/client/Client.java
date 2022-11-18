@@ -1,40 +1,33 @@
 package com.pl.nrdb.client;
 
 import com.pl.nrdb.idCard.IdCard;
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
-
-import javax.persistence.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Builder
-@Entity
-@Table
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "clients")
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+    private String id;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private String firstName;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private String lastName;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private String phoneNumber;
 
     @Setter
-    @OneToOne
     IdCard idCard;
 }

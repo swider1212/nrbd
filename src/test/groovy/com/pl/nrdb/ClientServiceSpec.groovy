@@ -17,7 +17,7 @@ class ClientServiceSpec extends Specification {
 
     def "Should return ClientNotFoundException for Client which does not exist"() {
         given: "clientId"
-        def clientId = 2
+        def clientId = "2"
 
         when: "fetchClient method returns optional.empty"
         clientRepository.findById(clientId) >> Optional.empty()
@@ -29,7 +29,7 @@ class ClientServiceSpec extends Specification {
 
     def "Should return client"() {
         given: "clientId"
-        def clientId = 1
+        def clientId = "1"
 
         and: "Client"
         Client client = new Client(clientId, "Marian", "Pazdzioch", "69", null)
@@ -48,7 +48,7 @@ class ClientServiceSpec extends Specification {
 
     def "Should return correct Client"() {
         given: "client"
-        Client client = new Client(1, "Ferdynand", "Kiepski", "2137", null)
+        Client client = new Client("1", "Ferdynand", "Kiepski", "2137", null)
 
         and: "necessary mock"
         clientRepository.save(_) >> client
@@ -59,5 +59,21 @@ class ClientServiceSpec extends Specification {
         then: "result is returned correctly"
         noExceptionThrown()
         result == client
+    }
+
+    def "Should return modified Client"() {
+        given: "client"
+        Client client = new Client("1", "Ferdynand", "Kiepski", "2137", null)
+        Client modifiedClient = new Client("2", "Arnold", "Boczek", "21372137", null)
+
+        and: "necessary mock"
+        clientRepository.save(_) >> client
+
+        when: "modifyClient method is called"
+        def result = clientService.modifyClient("2", "Arnold", "Boczek", "21372137", null)
+
+        then: "result is equal to modified client"
+        noExceptionThrown()
+        result == modifiedClient
     }
 }

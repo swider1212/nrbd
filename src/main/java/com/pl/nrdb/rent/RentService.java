@@ -8,7 +8,6 @@ import com.pl.nrdb.room.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -18,7 +17,7 @@ public class RentService {
     private final ClientService clientService;
     private final RoomService roomService;
 
-    public Rent fetchRent(Integer roomNumber, Integer clientId) {
+    public Rent fetchRent(Integer roomNumber, String clientId) {
         return rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId));
     }
 
@@ -26,12 +25,11 @@ public class RentService {
         return rentRepository.findAll();
     }
 
-    private void endRent(Integer roomNumber, Integer clientId) {
+    private void endRent(Integer roomNumber, String clientId) {
         rentRepository.delete(rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId)));
     }
 
-    @Transactional
-    Rent addRent(Float rentTotalCost, Integer roomNumber, Integer clientId) {
+    Rent addRent(Float rentTotalCost, Integer roomNumber, String clientId) {
         checkDuplicate(roomNumber, clientId);
         isRoomAvailable(roomNumber);
         roomService.fetchRoom(roomNumber).setIsAvailable(true);
@@ -43,7 +41,7 @@ public class RentService {
 
     }
 
-    private void checkDuplicate(Integer roomNumber, Integer clientId) {
+    private void checkDuplicate(Integer roomNumber, String clientId) {
         if (rentRepository.existsByRoomRoomNumberAndClientId(roomNumber, clientId)) {
             throw new RentAlreadyExistException(roomNumber, clientId);
         }
@@ -55,4 +53,14 @@ public class RentService {
         }
     }
 
+    public Rent modifyRent(Float rentTotalCost, Integer roomNumber, String clientId, String rentId) {
+        Rent rent = rentRepository.findById(rentId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId));
+        if (!rent.getClient().equals(clientService.fetchClient(clientId)) || !rent.getRentTotalCost().equals(rentTotalCost) || !rent.getRoom().equals(roomService.fetchRoom(roomNumber))) {
+            rent.setClient(clientService.fetchClient(clientId));
+            rent.setRentTotalCost(rentTotalCost);
+            rent.setRoom(roomService.fetchRoom(roomNumber));
+            rentRepository.save(rent);
+        }
+        return rent;
+    }
 }

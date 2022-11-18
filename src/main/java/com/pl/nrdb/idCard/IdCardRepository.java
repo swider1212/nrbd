@@ -1,11 +1,11 @@
 package com.pl.nrdb.idCard;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface IdCardRepository extends JpaRepository<IdCard, Integer> {
-    Optional<IdCard> findById(Integer id);
+public interface IdCardRepository extends MongoRepository<IdCard, String> {
+    Optional<IdCard> findById(String id);
 
     boolean existsByPersonalIdAndNationality(String personalId, String nationality);
 

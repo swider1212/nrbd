@@ -1,14 +1,11 @@
 package com.pl.nrdb.room;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import javax.persistence.LockModeType;
 import java.util.Optional;
 
-public interface RoomRepository extends JpaRepository<Room, Integer> {
+public interface RoomRepository extends MongoRepository<Room, String> {
 
-    @Lock(LockModeType.PESSIMISTIC_READ)
     Optional<Room> findByRoomNumber(Integer roomNumber);
 
     boolean existsByRoomNumber(Integer roomNumber);

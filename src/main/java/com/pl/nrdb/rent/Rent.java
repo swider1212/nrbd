@@ -2,35 +2,28 @@ package com.pl.nrdb.rent;
 
 import com.pl.nrdb.client.Client;
 import com.pl.nrdb.room.Room;
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
-
-import javax.persistence.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Builder
-@Entity
-@Table
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "rents")
 public class Rent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+    private String id;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private Float rentTotalCost;
 
-
-    @ManyToOne
     @Setter
     private Client client;
 
-    @ManyToOne
     @Setter
     private Room room;
 }

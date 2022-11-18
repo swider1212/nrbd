@@ -1,29 +1,27 @@
 package com.pl.nrdb.room;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@DiscriminatorValue("2")
+@Document(collection = "rooms")
+@TypeAlias("doubleroom")
 public class DoubleRoom extends Room {
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private Integer basePrice = 255;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private Integer capacity = 2;
 
     @Builder
-    public DoubleRoom(Integer id, Integer roomNumber, Boolean isAvailable, Integer basePrice, Integer capacity) {
+    public DoubleRoom(String id, Integer roomNumber, Boolean isAvailable, Integer basePrice, Integer capacity) {
         super(id, roomNumber, isAvailable);
         this.basePrice = basePrice;
         this.capacity = capacity;

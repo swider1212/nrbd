@@ -1,29 +1,25 @@
 package com.pl.nrdb.idCard;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
 @Builder
-@Entity
-@Table
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Document(collection = "idcards")
 public class IdCard {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+    private String id;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private String personalId;
 
-    @Column(length = 100)
     @Setter
     @NotNull
     private String nationality;

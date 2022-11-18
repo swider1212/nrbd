@@ -29,7 +29,7 @@ public class IdCardService {
         return idCardRepository.findByPersonalIdAndNationality(personalId, nationality).orElseThrow(() -> new IdCardNotFoundException(personalId, nationality));
     }
 
-    public IdCard getIdCard(Integer id) {
+    public IdCard getIdCard(String id) {
         return idCardRepository.findById(id).orElseThrow(() -> new IdCardWithIdNotFoundException(id));
     }
 
@@ -43,5 +43,15 @@ public class IdCardService {
         if (!idCardRepository.existsByPersonalIdAndNationality(personalId, nationality)) {
             throw new IdCardNotFoundException(personalId, nationality);
         }
+    }
+
+    public IdCard modifyIdCard(String personalId, String nationality, String idCardId) {
+        IdCard idCard = idCardRepository.findById(idCardId).orElseThrow(() -> new IdCardNotFoundException(personalId, nationality));
+        if(!idCard.getNationality().equals(nationality) || !idCard.getPersonalId().equals(personalId)) {
+            idCard.setNationality(nationality);
+            idCard.setPersonalId(personalId);
+            idCardRepository.save(idCard);
+        }
+        return idCard;
     }
 }

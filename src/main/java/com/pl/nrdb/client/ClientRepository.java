@@ -1,11 +1,11 @@
 package com.pl.nrdb.client;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ClientRepository extends JpaRepository<Client, Integer> {
-    Optional<Client> findById(Integer id);
+public interface ClientRepository extends MongoRepository<Client, String> {
+    Optional<Client> findById(String id);
 
     boolean existsByFirstNameAndAndLastNameAndPhoneNumber(String firstName, String lastName, String phoneNumber);
 

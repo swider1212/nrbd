@@ -1,14 +1,14 @@
 package com.pl.nrdb.rent;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface RentRepository extends JpaRepository<Rent, Integer> {
+public interface RentRepository extends MongoRepository<Rent, String> {
 
-    Optional<Rent> findById(Integer id);
+    Optional<Rent> findById(String id);
 
-    Optional<Rent> findByRoomRoomNumberAndClientId(Integer roomNumber, Integer clientId);
+    Optional<Rent> findByRoomRoomNumberAndClientId(Integer roomNumber, String clientId);
 
-    boolean existsByRoomRoomNumberAndClientId(Integer roomNumber, Integer clientId);
+    boolean existsByRoomRoomNumberAndClientId(Integer roomNumber, String clientId);
 }
