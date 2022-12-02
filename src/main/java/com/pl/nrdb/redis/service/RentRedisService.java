@@ -55,7 +55,7 @@ public class RentRedisService {
     }
 
     private void isRoomAvailable(Integer roomNumber) {
-        if (roomService.fetchRoom(roomNumber).getIsAvailable()) {
+        if (!roomService.fetchRoom(roomNumber).getIsAvailable()) {
             throw new RoomIsNotAvailableException(roomNumber);
         }
     }
