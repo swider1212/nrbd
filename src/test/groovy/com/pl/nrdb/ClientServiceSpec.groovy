@@ -4,6 +4,8 @@ import com.pl.nrdb.client.Client
 import com.pl.nrdb.client.exceptions.ClientNotFoundException
 import com.pl.nrdb.client.ClientRepository
 import com.pl.nrdb.client.ClientService
+import com.pl.nrdb.idCard.IdCard
+import com.pl.nrdb.idCard.IdCardRepository
 import com.pl.nrdb.idCard.IdCardService
 import spock.lang.Specification
 import spock.lang.Subject
@@ -11,6 +13,7 @@ import spock.lang.Subject
 class ClientServiceSpec extends Specification {
     def clientRepository = Mock(ClientRepository)
     def idCardService = Mock(IdCardService)
+    def idCardRepository = Mock(IdCardRepository)
 
     @Subject
     def clientService = new ClientService(clientRepository, idCardService)
@@ -63,14 +66,17 @@ class ClientServiceSpec extends Specification {
 
     def "Should return modified Client"() {
         given: "client"
-        Client client = new Client("1", "Ferdynand", "Kiepski", "2137", null)
-        Client modifiedClient = new Client("2", "Arnold", "Boczek", "21372137", null)
+        IdCard idCard = new IdCard("1", "1", "kiepski")
+        Client client = new Client("1", "Ferdynand", "Kiepski", "2137", idCard)
+        Client modifiedClient = new Client("2", "Arnold", "Boczek", "21372137", idCard)
 
         and: "necessary mock"
         clientRepository.save(_) >> client
+        clientRepository.save(_) >> modifiedClient
+        idCardRepository.save(_) >> idCard
 
         when: "modifyClient method is called"
-        def result = clientService.modifyClient("2", "Arnold", "Boczek", "21372137", null)
+        def result = clientService.modifyClient("2", "Arnold", "Boczek", "21372137", "1")
 
         then: "result is equal to modified client"
         noExceptionThrown()

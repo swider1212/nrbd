@@ -6,6 +6,7 @@ import com.pl.nrdb.rent.exceptions.RentNotFoundException;
 import com.pl.nrdb.room.exceptions.RoomIsNotAvailableException;
 import com.pl.nrdb.room.RoomService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class RentService {
         rentRepository.delete(rentRepository.findByRoomRoomNumberAndClientId(roomNumber, clientId).orElseThrow(() -> new RentNotFoundException(roomNumber, clientId)));
     }
 
-    Rent addRent(Float rentTotalCost, Integer roomNumber, String clientId) {
+    public Rent addRent(Float rentTotalCost, Integer roomNumber, String clientId) {
         checkDuplicate(roomNumber, clientId);
         isRoomAvailable(roomNumber);
         roomService.fetchRoom(roomNumber).setIsAvailable(true);

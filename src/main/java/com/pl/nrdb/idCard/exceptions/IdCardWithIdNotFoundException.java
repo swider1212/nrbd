@@ -4,7 +4,7 @@ import com.pl.nrdb.exceptions.NrdbException;
 
 public class IdCardWithIdNotFoundException extends NrdbException {
     public IdCardWithIdNotFoundException(String id) {
-        super(String.format("Id card is already in database {id=%s}",
+        super(String.format("Id card is not in database {id=%s}",
                 id));
     }
 }
