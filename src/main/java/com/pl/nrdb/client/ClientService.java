@@ -27,7 +27,7 @@ public class ClientService {
     }
 
     public void checkDuplicate(String firstName, String lastName, String phoneNumber) {
-        if (clientRepository.existsByFirstNameAndAndLastNameAndPhoneNumber(firstName, lastName, phoneNumber)) {
+        if (clientRepository.existsByFirstNameAndLastNameAndPhoneNumber(firstName, lastName, phoneNumber)) {
             throw new ClientWithCreditsNotFoundExceptions(firstName, lastName, phoneNumber);
         }
     }

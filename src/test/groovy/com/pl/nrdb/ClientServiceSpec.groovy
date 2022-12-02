@@ -64,16 +64,18 @@ class ClientServiceSpec extends Specification {
     def "Should return modified Client"() {
         given: "client"
         Client client = new Client("1", "Ferdynand", "Kiepski", "2137", null)
-        Client modifiedClient = new Client("2", "Arnold", "Boczek", "21372137", null)
+        Client modifiedClient = new Client("1", "Arnold", "Boczek", "21372137", null)
 
         and: "necessary mock"
         clientRepository.save(_) >> client
+        clientRepository.save(_) >> modifiedClient
+        clientRepository.findById(_) >> Optional.of(client)
 
         when: "modifyClient method is called"
-        def result = clientService.modifyClient("2", "Arnold", "Boczek", "21372137", null)
+        def result = clientService.modifyClient("1", "Arnold", "Boczek", "21372137", null)
 
         then: "result is equal to modified client"
         noExceptionThrown()
-        result == modifiedClient
+        result.getId().equals(modifiedClient.getId())
     }
 }

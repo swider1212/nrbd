@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface ClientRepository extends MongoRepository<Client, String> {
     Optional<Client> findById(String id);
 
-    boolean existsByFirstNameAndAndLastNameAndPhoneNumber(String firstName, String lastName, String phoneNumber);
+    boolean existsByFirstNameAndLastNameAndPhoneNumber(String firstName, String lastName, String phoneNumber);
 
     Optional<Client> findByFirstNameAndAndLastNameAndPhoneNumber(String firstName, String lastName, String phoneNumber);
 }
