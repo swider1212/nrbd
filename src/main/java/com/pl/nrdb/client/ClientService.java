@@ -14,6 +14,7 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final IdCardService idCardService;
 
+
     public Client fetchClient(String clientId) {
         return clientRepository.findById(clientId).orElseThrow(() -> new ClientNotFoundException(clientId));
     }

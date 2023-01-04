@@ -1,10 +1,12 @@
 package com.pl.nrdb.idCard;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface IdCardRepository extends MongoRepository<IdCard, String> {
+@Repository
+public interface IdCardRepository extends CassandraRepository<IdCard, String> {
     Optional<IdCard> findById(String id);
 
     boolean existsByPersonalIdAndNationality(String personalId, String nationality);

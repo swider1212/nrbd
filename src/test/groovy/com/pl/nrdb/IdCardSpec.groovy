@@ -29,7 +29,7 @@ class IdCardSpec extends Specification{
 
     def buildExpectedIdCard() {
         IdCard.builder()
-        .id(1)
+        .id("1")
         .nationality("xyz")
         .personalId("69")
         .build()

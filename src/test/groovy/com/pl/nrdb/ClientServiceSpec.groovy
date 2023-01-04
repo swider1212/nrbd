@@ -1,9 +1,9 @@
 package com.pl.nrdb
 
 import com.pl.nrdb.client.Client
-import com.pl.nrdb.client.exceptions.ClientNotFoundException
 import com.pl.nrdb.client.ClientRepository
 import com.pl.nrdb.client.ClientService
+import com.pl.nrdb.client.exceptions.ClientNotFoundException
 import com.pl.nrdb.idCard.IdCard
 import com.pl.nrdb.idCard.IdCardRepository
 import com.pl.nrdb.idCard.IdCardService

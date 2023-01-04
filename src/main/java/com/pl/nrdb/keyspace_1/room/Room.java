@@ -1,26 +1,28 @@
-package com.pl.nrdb.idCard;
+package com.pl.nrdb.keyspace_1.room;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-
-@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
-public class IdCard {
+public class Room {
 
     @PrimaryKey
     private String id;
 
     @Setter
     @NotNull
-    private String personalId;
+    private Integer roomNumber;
 
     @Setter
     @NotNull
-    private String nationality;
+    private Boolean isAvailable = true;
+
 }

@@ -1,10 +1,12 @@
 package com.pl.nrdb.client;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface ClientRepository extends MongoRepository<Client, String> {
+@Repository
+public interface ClientRepository extends CassandraRepository<Client, String> {
     Optional<Client> findById(String id);
 
     boolean existsByFirstNameAndAndLastNameAndPhoneNumber(String firstName, String lastName, String phoneNumber);

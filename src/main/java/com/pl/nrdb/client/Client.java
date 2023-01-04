@@ -3,17 +3,18 @@ package com.pl.nrdb.client;
 import com.pl.nrdb.idCard.IdCard;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.cassandra.core.mapping.Embedded;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+import static org.springframework.data.cassandra.core.mapping.Embedded.OnEmpty.USE_NULL;
 
 @Builder
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Document(collection = "clients")
+@Table
 public class Client {
 
-    @Id
+    @PrimaryKey
     private String id;
 
     @Setter
@@ -29,5 +30,14 @@ public class Client {
     private String phoneNumber;
 
     @Setter
+    @Embedded(onEmpty = USE_NULL)
     IdCard idCard;
+
+    public Client(String id, @NotNull String firstName, @NotNull String lastName, @NotNull String phoneNumber, IdCard idCard) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.idCard = idCard;
+    }
 }
